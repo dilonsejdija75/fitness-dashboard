@@ -32,18 +32,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!document.querySelector('.mobile-menu-btn')) {
         const mobileBtn = document.createElement('button');
         mobileBtn.className = 'mobile-menu-btn';
-        mobileBtn.setAttribute('onclick', 'toggleMobileMenu()');
+        mobileBtn.onclick = toggleMobileMenu;
         mobileBtn.setAttribute('aria-label', 'Toggle navigation menu');
         mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        document.body.insertBefore(mobileBtn, document.body.firstChild);
+        document.body.appendChild(mobileBtn);
     }
     
     // Add mobile overlay if it doesn't exist
     if (!document.querySelector('.mobile-overlay')) {
         const overlay = document.createElement('div');
         overlay.className = 'mobile-overlay';
-        overlay.setAttribute('onclick', 'closeMobileMenu()');
-        document.body.insertBefore(overlay, document.body.firstChild);
+        overlay.onclick = closeMobileMenu;
+        document.body.appendChild(overlay);
     }
     
     // Close menu when clicking nav links
