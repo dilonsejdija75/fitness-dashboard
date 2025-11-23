@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" style="display: none;">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
+    
     <nav class="sidebar" role="navigation" aria-label="Main navigation">
         <div class="logo">
             <span>FitTracker Pro</span>
