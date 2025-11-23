@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="css/professional-enhancements.css">
 </head>
 <body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" style="display: none;">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
+    
     <nav class="sidebar" role="navigation" aria-label="Main navigation">
         <div class="logo">
             <span>FitTracker Pro</span>
@@ -349,6 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script src="js/professional-enhancements.js"></script>
+<script src="js/mobile-nav.js"></script>
 <script>
     function logout() {
         localStorage.clear();
