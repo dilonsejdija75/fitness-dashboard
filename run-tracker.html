@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Tracker - Fitness Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="exercise.html">Exercises</a></li>
+                <li><a href="run-tracker.html" class="active">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+            </ul>
+        </div>
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html">Information</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <header class="top-header">
+            <h1>Run Tracker</h1>
+            <div class="user-info">
+                <span>Welcome back, Dilon!</span>
+                <div class="avatar">DS</div>
+            </div>
+        </header>
+        
+        <main class="dashboard">
+            <div class="run-actions">
+                <button class="start-run-btn" onclick="startNewRun()"><i class="fas fa-play"></i> Start New Run</button>
+                <button class="track-btn" onclick="trackRoute()"><i class="fas fa-map-marker-alt"></i> Track Route</button>
+            </div>
+            
+            <div class="run-stats">
+                <div class="stat-card featured">
+                    <h3><i class="fas fa-route"></i> Today's Run</h3>
+
+                    <div class="run-activity-preview">
+                        <svg role="img" aria-labelledby="runTitle runDesc" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+                            <title id="runTitle">Today's route preview</title>
+                            <desc id="runDesc">A stylized route showing start and finish markers.</desc>
+                            <defs>
+                                <linearGradient id="g1" x1="0" x2="1">
+                                        <stop offset="0%" stop-color="#3b82f6"/>
+                                        <stop offset="100%" stop-color="#06b6d4"/>
+                                    </linearGradient>
+                            </defs>
+                            <rect x="0" y="0" width="300" height="180" rx="8" style="fill:var(--card)" />
+                            <path d="M20 150 C60 100, 90 60, 140 70 C190 80, 220 40, 260 20" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="22" cy="148" r="6" fill="#fff" stroke="#3b82f6" stroke-width="2" />
+                            <circle cx="258" cy="18" r="6" fill="#fff" stroke="#06b6d4" stroke-width="2" />
+                        </svg>
+                    </div>
+
+                    <div class="stat-content">
+                        <p>Distance: <span>5.2 km</span></p>
+                        <p>Time: <span>28:45</span></p>
+                        <p>Pace: <span>5:32/km</span></p>
+                        <p>Elevation: <span>+45m</span></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-chart-line"></i> This Week</h3>
+                    <div class="weekly-chart">
+                        <div class="chart-bars">
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 30%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                            <div class="bar" style="height: 0%"></div>
+                            <div class="bar" style="height: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <p>Total Distance: <span>18.7 km</span></p>
+                        <p>Total Time: <span>1h 42m</span></p>
+                        <p>Runs: <span>4</span></p>
+                        <p>Avg Pace: <span>5:28/km</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="goals-achievements">
+                <div class="goals-card">
+                    <h3><i class="fas fa-target"></i> Weekly Goals</h3>
+                    <div class="goal-item">
+                        <span>Distance Goal</span>
+                        <div class="goal-progress">
+                            <div class="goal-bar">
+                                <div class="goal-fill" style="width: 75%"></div>
+                            </div>
+                            <span>18.7/25 km</span>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <span>Frequency Goal</span>
+                        <div class="goal-progress">
+                            <div class="goal-bar">
+                                <div class="goal-fill" style="width: 80%"></div>
+                            </div>
+                            <span>4/5 runs</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="achievements-card">
+                    <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                    <div class="achievement-list">
+                        <div class="achievement-item">
+                            <i class="fas fa-medal"></i>
+                            <span>5K Master</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-fire"></i>
+                            <span>7 Day Streak</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Personal Best</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="run-history">
+                <h3><i class="fas fa-history"></i> Recent Runs</h3>
+                <div class="run-list">
+                    <div class="run-item detailed">
+                        <div class="run-info">
+                            <span class="run-title">Today - Morning Run</span>
+                            <span class="run-location">Central Park Route</span>
+                        </div>
+                        <div class="run-stats-mini">
+                            <span>5.2km</span>
+                            <span>28:45</span>
+                            <span>5:32/km</span>
+                        </div>
+                    </div>
+                    <div class="run-item detailed">
+                        <div class="run-info">
+                            <span class="run-title">Yesterday - Evening Run</span>
+                            <span class="run-location">Riverside Trail</span>
+                        </div>
+                        <div class="run-stats-mini">
+                            <span>3.8km</span>
+                            <span>22:15</span>
+                            <span>5:51/km</span>
+                        </div>
+                    </div>
+                    <div class="run-item detailed">
+                        <div class="run-info">
+                            <span class="run-title">2 days ago - Long Run</span>
+                            <span class="run-location">Mountain Trail</span>
+                        </div>
+                        <div class="run-stats-mini">
+                            <span>8.5km</span>
+                            <span>48:30</span>
+                            <span>5:42/km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="saved-routes">
+                <h3><i class="fas fa-map-marked-alt"></i> Saved Routes</h3>
+                <div id="savedRoutesList" class="routes-list">
+                    <p class="no-routes">No saved routes yet. Track and save your favorite routes!</p>
+                </div>
+            </div>
+            
+
+            
+            <!-- Floating Run Timer Widget -->
+            <div id="runTimerWidget" class="run-timer-widget" style="display: none;">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <i class="fas fa-running"></i>
+                        <span>Active Run</span>
+                    </div>
+                    <button class="minimize-btn" onclick="toggleWidget()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <div class="widget-content">
+                    <div class="timer-display">
+                        <span id="runTimer">00:00:00</span>
+                    </div>
+                    <div class="stats-mini">
+                        <div class="stat-item">
+                            <span class="label">Distance</span>
+                            <span id="liveDistance">0.0 km</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Pace</span>
+                            <span id="livePace">--:--</span>
+                        </div>
+                    </div>
+                    <div class="widget-controls">
+                        <button id="pauseBtn" class="control-btn" onclick="pauseRun()">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="control-btn finish" onclick="finishRun()">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Tracker Modal -->
+            <div id="routeModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-map-marker-alt"></i> Route Tracker</h3>
+                        <button class="close-btn" onclick="closeRouteModal()">&times;</button>
+                    </div>
+                    <div class="route-content">
+                        <div class="route-map">
+                            <div id="map" class="map-container"></div>
+                        </div>
+                        <div class="route-info">
+                            <h4>Current Location</h4>
+                            <p id="locationInfo">Detecting location...</p>
+                            <button class="save-route-btn" onclick="saveRoute()">Save Route</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Route Name Modal -->
+            <div id="routeNameModal" class="modal" style="display: none;">
+                <div class="modal-content route-name-modal">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-save"></i> Save Route</h3>
+                        <button class="close-btn" onclick="closeRouteNameModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-description">Give your route a memorable name so you can easily find it later.</p>
+                        <div class="form-group">
+                            <label for="routeNameInput">Route Name</label>
+                            <input type="text" id="routeNameInput" class="form-input" placeholder="e.g., Morning Park Loop" maxlength="50">
+                        </div>
+                        <div class="modal-actions">
+                            <button class="cancel-btn" onclick="closeRouteNameModal()">Cancel</button>
+                            <button class="save-btn" onclick="confirmSaveRoute()">Save Route</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let runTimer = null;
+        let startTime = null;
+        let elapsedTime = 0;
+        let isPaused = false;
+        let distance = 0;
+
+        function startNewRun() {
+            document.getElementById('runTimerWidget').style.display = 'block';
+            startTime = Date.now();
+            elapsedTime = 0;
+            distance = 0;
+            isPaused = false;
+            
+            updateTimer();
+            runTimer = setInterval(updateTimer, 1000);
+            
+            showNotification('Run started! Good luck!', 'success');
+        }
+
+        function updateTimer() {
+            if (!isPaused) {
+                const currentTime = Date.now();
+                elapsedTime = currentTime - startTime;
+            }
+            
+            const totalSeconds = Math.floor(elapsedTime / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            document.getElementById('runTimer').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Simulate distance increase
+            distance += 0.001;
+            document.getElementById('liveDistance').textContent = `${distance.toFixed(2)} km`;
+            
+            // Calculate pace
+            if (distance > 0) {
+                const paceMinutes = (totalSeconds / 60) / distance;
+                const paceMin = Math.floor(paceMinutes);
+                const paceSec = Math.floor((paceMinutes - paceMin) * 60);
+                document.getElementById('livePace').textContent = `${paceMin}:${paceSec.toString().padStart(2, '0')}/km`;
+            }
+        }
+
+        function pauseRun() {
+            const pauseBtn = document.getElementById('pauseBtn');
+            
+            if (isPaused) {
+                // Resume
+                startTime = Date.now() - elapsedTime;
+                isPaused = false;
+                pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                runTimer = setInterval(updateTimer, 1000);
+                showNotification('Run resumed!', 'success');
+            } else {
+                // Pause
+                isPaused = true;
+                clearInterval(runTimer);
+                pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+                showNotification('Run paused', 'success');
+            }
+        }
+
+        function finishRun() {
+            if (confirm('Are you sure you want to finish this run?')) {
+                clearInterval(runTimer);
+                
+                const runData = {
+                    id: Date.now(),
+                    date: new Date().toISOString().split('T')[0],
+                    time: new Date().toLocaleTimeString('en-US', { hour12: false }),
+                    duration: elapsedTime,
+                    distance: distance,
+                    type: 'run'
+                };
+                
+                saveRunData(runData);
+                document.getElementById('runTimerWidget').style.display = 'none';
+                showNotification(`Run completed! Distance: ${distance.toFixed(2)}km`, 'success');
+            }
+        }
+
+        function stopRun() {
+            if (confirm('Are you sure you want to stop this run? Progress will be lost.')) {
+                clearInterval(runTimer);
+                document.getElementById('runTimerWidget').style.display = 'none';
+                showNotification('Run stopped', 'success');
+            }
+        }
+        
+        function toggleWidget() {
+            const widget = document.getElementById('runTimerWidget');
+            const content = widget.querySelector('.widget-content');
+            const btn = widget.querySelector('.minimize-btn i');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.className = 'fas fa-minus';
+            } else {
+                content.style.display = 'none';
+                btn.className = 'fas fa-plus';
+            }
+        }
+
+        let map = null;
+        let marker = null;
+
+        function trackRoute() {
+            document.getElementById('routeModal').style.display = 'flex';
+            document.getElementById('locationInfo').textContent = 'Getting your location...';
+            
+            // Initialize map with proper timing
+            setTimeout(() => {
+                if (!map) {
+                    map = L.map('map').setView([51.505, -0.09], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
+                }
+                // Force map to resize and redraw
+                setTimeout(() => {
+                    if (map) {
+                        map.invalidateSize();
+                    }
+                }, 200);
+                
+                // Automatically get user location
+                getUserLocation();
+            }, 300);
+        }
+        
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // Update location info
+                        document.getElementById('locationInfo').textContent = `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
+                        
+                        // Update map with user location
+                        if (map) {
+                            map.setView([lat, lng], 16);
+                            
+                            if (marker) {
+                                map.removeLayer(marker);
+                            }
+                            
+                            marker = L.marker([lat, lng])
+                                .addTo(map)
+                                .bindPopup(`<b>Your Current Location</b><br>Accuracy: ±${Math.round(position.coords.accuracy)}m<br>Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}`)
+                                .openPopup();
+                        }
+                        
+                        showNotification('Your location found and displayed!', 'success');
+                    },
+                    function(error) {
+                        let errorMsg = 'Location access denied';
+                        if (error.code === 1) {
+                            errorMsg = 'Location access denied. Please allow location access.';
+                        } else if (error.code === 2) {
+                            errorMsg = 'Location unavailable. Please try again.';
+                        } else if (error.code === 3) {
+                            errorMsg = 'Location request timed out. Please try again.';
+                        }
+                        
+                        document.getElementById('locationInfo').textContent = errorMsg;
+                        showNotification(errorMsg, 'error');
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 60000
+                    }
+                );
+            } else {
+                document.getElementById('locationInfo').textContent = 'Geolocation not supported by this browser';
+                showNotification('Geolocation not supported by this browser.', 'error');
+            }
+        }
+
+        function closeRouteModal() {
+            document.getElementById('routeModal').style.display = 'none';
+            if (map) {
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 100);
+            }
+        }
+
+        function saveRoute() {
+            if (!marker) {
+                showNotification('No location to save. Please track your location first.', 'error');
+                return;
+            }
+            
+            showRouteNameModal();
+        }
+        
+        function showRouteNameModal() {
+            document.getElementById('routeNameModal').style.display = 'flex';
+            document.getElementById('routeNameInput').focus();
+        }
+        
+        function closeRouteNameModal() {
+            document.getElementById('routeNameModal').style.display = 'none';
+            document.getElementById('routeNameInput').value = '';
+        }
+        
+        function confirmSaveRoute() {
+            const routeName = document.getElementById('routeNameInput').value.trim();
+            if (!routeName) {
+                showNotification('Please enter a route name.', 'error');
+                return;
+            }
+            
+            const routeData = {
+                id: Date.now(),
+                name: routeName,
+                date: new Date().toISOString(),
+                location: {
+                    lat: marker.getLatLng().lat,
+                    lng: marker.getLatLng().lng
+                },
+                description: `Saved on ${new Date().toLocaleDateString()}`
+            };
+            
+            let savedRoutes = JSON.parse(localStorage.getItem('savedRoutes') || '[]');
+            savedRoutes.push(routeData);
+            localStorage.setItem('savedRoutes', JSON.stringify(savedRoutes));
+            
+            showNotification(`Route "${routeName}" saved successfully!`, 'success');
+            closeRouteNameModal();
+            closeRouteModal();
+            loadSavedRoutes();
+        }
+
+        function saveRunData(runData) {
+            let runs = JSON.parse(localStorage.getItem('runs') || '[]');
+            runs.push(runData);
+            localStorage.setItem('runs', JSON.stringify(runs));
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        function loadSavedRoutes() {
+            const savedRoutes = JSON.parse(localStorage.getItem('savedRoutes') || '[]');
+            const routesList = document.getElementById('savedRoutesList');
+            
+            if (savedRoutes.length === 0) {
+                routesList.innerHTML = '<p class="no-routes">No saved routes yet. Track and save your favorite routes!</p>';
+                return;
+            }
+            
+            routesList.innerHTML = savedRoutes.map(route => `
+                <div class="route-item">
+                    <div class="route-info">
+                        <span class="route-name">${route.name}</span>
+                        <span class="route-date">${new Date(route.date).toLocaleDateString()}</span>
+                        <span class="route-coords">Lat: ${route.location.lat.toFixed(4)}, Lng: ${route.location.lng.toFixed(4)}</span>
+                    </div>
+                    <div class="route-actions">
+                        <button class="view-route-btn" onclick="viewRoute(${route.id})">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="delete-route-btn" onclick="deleteRoute(${route.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function viewRoute(routeId) {
+            const savedRoutes = JSON.parse(localStorage.getItem('savedRoutes') || '[]');
+            const route = savedRoutes.find(r => r.id === routeId);
+            
+            if (!route) {
+                showNotification('Route not found!', 'error');
+                return;
+            }
+            
+            // Open route modal and show the saved location
+            document.getElementById('routeModal').style.display = 'flex';
+            document.getElementById('locationInfo').textContent = `Viewing: ${route.name}`;
+            
+            setTimeout(() => {
+                if (!map) {
+                    map = L.map('map').setView([route.location.lat, route.location.lng], 16);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
+                } else {
+                    map.setView([route.location.lat, route.location.lng], 16);
+                }
+                
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                
+                marker = L.marker([route.location.lat, route.location.lng])
+                    .addTo(map)
+                    .bindPopup(`<b>${route.name}</b><br>Saved: ${new Date(route.date).toLocaleDateString()}<br>Lat: ${route.location.lat.toFixed(6)}<br>Lng: ${route.location.lng.toFixed(6)}`)
+                    .openPopup();
+                
+                setTimeout(() => {
+                    if (map) {
+                        map.invalidateSize();
+                    }
+                }, 200);
+            }, 300);
+        }
+        
+        function deleteRoute(routeId) {
+            if (confirm('Are you sure you want to delete this route?')) {
+                let savedRoutes = JSON.parse(localStorage.getItem('savedRoutes') || '[]');
+                savedRoutes = savedRoutes.filter(r => r.id !== routeId);
+                localStorage.setItem('savedRoutes', JSON.stringify(savedRoutes));
+                loadSavedRoutes();
+                showNotification('Route deleted successfully!', 'success');
+            }
+        }
+        
+
+
+        // Add Enter key support for route name input
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedRoutes();
+            
+            const routeNameInput = document.getElementById('routeNameInput');
+            if (routeNameInput) {
+                routeNameInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        confirmSaveRoute();
+                    }
+                });
+            }
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const runModal = document.getElementById('runTimerModal');
+            const routeModal = document.getElementById('routeModal');
+            const routeNameModal = document.getElementById('routeNameModal');
+            
+            if (event.target === runModal) {
+                stopRun();
+            }
+            if (event.target === routeModal) {
+                closeRouteModal();
+            }
+            if (event.target === routeNameModal) {
+                closeRouteNameModal();
+            }
+        }
+    </script>
+
+    <style>
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 0;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h3 {
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+        }
+
+        .run-timer-widget {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 280px;
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            z-index: 999;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            border-radius: 12px 12px 0 0;
+            color: white;
+        }
+
+        .widget-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .minimize-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+
+        .minimize-btn:hover {
+            opacity: 1;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .widget-content {
+            padding: 1rem;
+        }
+
+        .timer-display {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .timer-display span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stats-mini {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .label {
+            display: block;
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-item span:last-child {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .widget-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .control-btn {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn.finish {
+            background: var(--danger);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .route-content {
+            padding: 1.5rem;
+        }
+
+        .map-container {
+            height: 300px;
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .leaflet-popup-content {
+            color: #333 !important;
+        }
+
+        .route-info h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .route-info p {
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .save-route-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+
+
+        .saved-routes {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .saved-routes h3 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .routes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .route-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--panel);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .route-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .route-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .route-date {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        
+        .route-coords {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-family: monospace;
+        }
+        
+        .route-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-route-btn, .delete-route-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .view-route-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .delete-route-btn {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .view-route-btn:hover, .delete-route-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .no-routes {
+            text-align: center;
+            color: var(--muted);
+            padding: 2rem;
+            font-style: italic;
+        }
+        
+        .route-name-modal {
+            max-width: 400px;
+        }
+        
+        .modal-description {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .cancel-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .cancel-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+        
+        .save-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1001;
+            min-width: 300px;
+            border-left: 4px solid var(--accent-2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification i:first-child {
+            color: var(--accent-2);
+            font-size: 1.2rem;
+        }
+
+        .notification span {
+            flex: 1;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+    <script src="js/mobile-nav.js"></script>
+    <script>
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information - Fitness Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/professional-enhancements.css">
+</head>
+<body>
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="exercise.html">Exercises</a></li>
+                <li><a href="run-tracker.html">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+            </ul>
+        </div>
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html" class="active">Information</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <header class="top-header">
+            <h1>Information</h1>
+            <div class="user-info">
+                <span>Welcome back, Dilon!</span>
+                <div class="avatar">DS</div>
+            </div>
+        </header>
+        
+        <main class="dashboard">
+            <div class="info-section">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="profile-name">Dilon Sejdija</h2>
+                        <p class="profile-subtitle">Fitness Enthusiast</p>
+                        <div class="profile-status">
+                            <span class="status-badge active">Active Member</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-metrics">
+                    <div class="metric-group">
+                        <h4>Personal Details</h4>
+                        <div class="metric-row">
+                            <div class="metric-item">
+                                <label>Age</label>
+                                <div class="input-group">
+                                    <input type="number" id="ageInput" value="28" min="1" max="120">
+                                    <span class="unit">years</span>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <label>Height</label>
+                                <div class="input-group">
+                                    <input type="number" id="heightInput" value="175" min="100" max="250">
+                                    <span class="unit">cm</span>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <label>Weight</label>
+                                <div class="input-group">
+                                    <input type="number" id="weightInput" value="70" min="30" max="300">
+                                    <span class="unit">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-group">
+                        <h4>Health Indicators</h4>
+                        <div class="bmi-display">
+                            <div class="bmi-value">
+                                <span class="bmi-number" id="bmiNumber">22.9</span>
+                                <span class="bmi-category" id="bmiCategory">Normal</span>
+                            </div>
+                            <div class="bmi-label">Body Mass Index</div>
+                        </div>
+                    </div>
+                    
+                    <button class="save-profile-btn" onclick="saveProfile()">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                </div>
+                
+                <div class="fitness-info-card">
+                    <h3><i class="fas fa-heartbeat"></i> Fitness Information</h3>
+                    <div class="fitness-details">
+                        <div class="detail-item">
+                            <span class="label">Fitness Level:</span>
+                            <span class="value">Intermediate</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Primary Goal:</span>
+                            <span class="value">Weight Loss</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Target Weight:</span>
+                            <span class="value">65 kg</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Weekly Goal:</span>
+                            <span class="value">5 workouts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="health-metrics">
+                <h3><i class="fas fa-chart-pie"></i> Health Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <i class="fas fa-heart"></i>
+                        <span class="metric-value">72</span>
+                        <span class="metric-label">Resting Heart Rate</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-tint"></i>
+                        <span class="metric-value">65%</span>
+                        <span class="metric-label">Body Water</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-fire"></i>
+                        <span class="metric-value">1850</span>
+                        <span class="metric-label">Daily Calories</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-dumbbell"></i>
+                        <span class="metric-value">18%</span>
+                        <span class="metric-label">Muscle Mass</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+function saveProfile() {
+    const age = document.getElementById('ageInput').value;
+    const height = document.getElementById('heightInput').value;
+    const weight = document.getElementById('weightInput').value;
+    
+    // Calculate BMI
+    const heightInMeters = height / 100;
+    const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+    
+    let bmiCategory = '';
+    if (bmi < 18.5) bmiCategory = 'Underweight';
+    else if (bmi < 25) bmiCategory = 'Normal';
+    else if (bmi < 30) bmiCategory = 'Overweight';
+    else bmiCategory = 'Obese';
+    
+    // Update BMI display
+    document.getElementById('bmiNumber').textContent = bmi;
+    document.getElementById('bmiCategory').textContent = bmiCategory;
+    
+    // Save to localStorage
+    const profileData = { age, height, weight, bmi, bmiCategory };
+    localStorage.setItem('userProfile', JSON.stringify(profileData));
+    
+    showNotification('Profile updated successfully!', 'success');
+}
+
+function loadProfile() {
+    const saved = localStorage.getItem('userProfile');
+    if (saved) {
+        const profile = JSON.parse(saved);
+        document.getElementById('ageInput').value = profile.age;
+        document.getElementById('heightInput').value = profile.height;
+        document.getElementById('weightInput').value = profile.weight;
+        document.getElementById('bmiNumber').textContent = profile.bmi;
+        document.getElementById('bmiCategory').textContent = profile.bmiCategory;
+    }
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" class="close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 3000);
+}
+
+// Auto-calculate BMI when inputs change
+document.addEventListener('DOMContentLoaded', function() {
+    loadProfile();
+    
+    const heightInput = document.getElementById('heightInput');
+    const weightInput = document.getElementById('weightInput');
+    
+    function updateBMI() {
+        const height = heightInput.value;
+        const weight = weightInput.value;
+        
+        if (height && weight) {
+            const heightInMeters = height / 100;
+            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+            
+            let bmiCategory = '';
+            if (bmi < 18.5) bmiCategory = 'Underweight';
+            else if (bmi < 25) bmiCategory = 'Normal';
+            else if (bmi < 30) bmiCategory = 'Overweight';
+            else bmiCategory = 'Obese';
+            
+            document.getElementById('bmiNumber').textContent = bmi;
+            document.getElementById('bmiCategory').textContent = bmiCategory;
+        }
+    }
+    
+    heightInput.addEventListener('input', updateBMI);
+    weightInput.addEventListener('input', updateBMI);
+});
+</script>
+
+<style>
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(6,182,212,0.1) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(59,130,246,0.2);
+}
+
+.profile-avatar .avatar-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 8px 24px rgba(59,130,246,0.3);
+}
+
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.25rem 0;
+}
+
+.profile-subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.status-badge {
+    background: rgba(34,197,94,0.2);
+    color: #22c55e;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(34,197,94,0.3);
+}
+
+.profile-metrics {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.metric-group {
+    margin-bottom: 2rem;
+}
+
+.metric-group h4 {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+}
+
+.metric-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.metric-item label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.input-group:focus-within {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.input-group input {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    width: 60px;
+    outline: none;
+}
+
+.input-group .unit {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.bmi-display {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(59,130,246,0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(59,130,246,0.1);
+}
+
+.bmi-value {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.bmi-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.bmi-category {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    background: rgba(59,130,246,0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+.bmi-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.save-profile-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+}
+
+.save-profile-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1000;
+    min-width: 300px;
+    border-left: 4px solid var(--accent-2);
+    animation: slideIn 0.3s ease;
+}
+
+.notification i:first-child {
+    color: var(--accent-2);
+    font-size: 1.2rem;
+}
+
+.notification span {
+    flex: 1;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--text);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+</style>
+
+<script>
+    function logout() {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+</script>
+
+<script src="js/professional-enhancements.js"></script>
+<script>
+    function logout() {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+    
+    // Enhanced form handling
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form').forEach(form => {
+            form.setAttribute('data-autosave', 'true');
+            form.addEventListener('submit', function(e) {
+                if (!professionalEnhancements.validateForm(this)) {
+                    e.preventDefault();
+                    professionalEnhancements.showErrorToast('Please fix the errors before submitting.');
+                }
+            });
+        });
+        
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('blur', function() {
+                const error = professionalEnhancements.validateInput(this);
+                if (error) {
+                    professionalEnhancements.showFieldError(this, error);
+                } else {
+                    professionalEnhancements.clearFieldError(this);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

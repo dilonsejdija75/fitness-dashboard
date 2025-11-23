@@ -1,0 +1,389 @@
+/* Cleaned dashboard styles using theme variables */
+
+.dashboard {
+    display: grid;
+    gap: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: linear-gradient(180deg, var(--glass), rgba(255,255,255,0.01));
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    border: 1px solid var(--border);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(2,6,23,0.7);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.steps .stat-icon {
+    background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+    color: white;
+}
+
+.calories .stat-icon {
+    background: linear-gradient(135deg, var(--accent-2) 0%, #0891b2 100%);
+    color: white;
+}
+
+.workouts .stat-icon {
+    background: linear-gradient(135deg, #1d4ed8 0%, var(--accent) 100%);
+    color: white;
+}
+
+.water .stat-icon {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+}
+
+.stat-info h3 {
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.stat-info span {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+    line-height: 1;
+}
+
+.stat-info small {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.charts-section {
+    background: linear-gradient(180deg, var(--glass), rgba(255,255,255,0.01));
+    padding: 1.75rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.55);
+    border: 1px solid var(--border);
+}
+
+.charts-section h2 {
+    color: var(--text);
+    font-size: 1.12rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+.chart-container {
+    height: 300px;
+}
+
+.nutrition-section {
+    background: linear-gradient(180deg, var(--glass), rgba(255,255,255,0.01));
+    padding: 1.75rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.55);
+    border: 1px solid var(--border);
+}
+
+.nutrition-section h2 {
+    color: var(--text);
+    font-size: 1.12rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+.nutrition-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+    background: rgba(255,255,255,0.02);
+    color: var(--text);
+}
+
+.form-input select,
+select.form-input {
+    background: var(--card) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.form-input select option,
+select.form-input option {
+    background: var(--card) !important;
+    color: var(--text) !important;
+    padding: 0.5rem !important;
+}
+
+.form-input select:focus,
+select.form-input:focus {
+    background: var(--card) !important;
+    color: var(--text) !important;
+    border-color: var(--accent) !important;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(139,92,246,0.05);
+}
+
+.btn-primary {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+}
+
+.bmi-result {
+    margin-top: 1rem;
+    color: var(--text);
+}
+
+.bmi-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+}
+
+.bmi-value {
+    font-size: 2rem;
+    color: var(--text);
+}
+
+.bmi-category {
+    padding: 0.25rem 0.75rem;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* BMI color variants */
+.bmi-underweight { color: var(--accent); }
+.bmi-normal { color: var(--accent-2); }
+.bmi-overweight { color: var(--warn); }
+.bmi-obese { color: var(--danger); }
+
+.bmi-category.bmi-underweight { background: var(--accent); }
+.bmi-category.bmi-normal { background: var(--accent-2); }
+.bmi-category.bmi-overweight { background: var(--warn); }
+.bmi-category.bmi-obese { background: var(--danger); }
+
+.recent-sessions h3 {
+    color: var(--text);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.recent-sessions-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color: var(--muted);
+}
+
+.recent-title {
+    margin:0;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    color: var(--text);
+}
+
+.sessions-list {
+    margin-top: 0.75rem;
+}
+
+.session-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    margin-bottom: 8px;
+}
+
+.session-item .session-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.session-item .session-time {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.session-item .session-duration {
+    color: var(--muted);
+}
+
+.delete-session {
+    background: transparent;
+    border: none;
+    color: var(--danger);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.clear-sessions-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.04);
+    color: var(--muted);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* run activity preview in dashboard */
+.run-activity-preview { margin-top: 12px; }
+.run-activity-preview svg { width: 100%; height: auto; border-radius: 8px; display: block; }
+.run-activity-preview small { display:block; margin-top:6px; color:var(--muted); }
+
+/* small utility for visually-hidden but accessible text */
+.sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* helper classes used by JS */
+.no-sessions { color: var(--muted); padding: 8px 0; }
+.workout-timer { color: var(--muted); margin-left: 16px; font-weight: 600; }
+.start-workout-btn.active { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: white; }
+.notify-note { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
+
+/* focus styles for interactive elements */
+button:focus, .delete-session:focus, .clear-sessions-btn:focus {
+    outline: 3px solid rgba(59,130,246,0.3);
+    outline-offset: 2px;
+}
+
+/* Goal controls */
+.goal-controls { display:flex; gap:12px; align-items:center; margin-top:10px; }
+.goal-status { color: var(--muted); font-size: 0.95rem; }
+.goals-btn.active { background: linear-gradient(135deg, var(--accent-2) 0%, #0891b2 100%); color: white; }
+
+/* goal form */
+.goal-form { margin-top: 12px; display:flex; flex-direction:column; gap:8px; max-width:360px; }
+.hidden { display:none !important; }
+.goal-summary { color: var(--muted); font-size:0.95rem; margin-left:8px; }
+
+/* Goal type visual variants for better contrast when selecting a goal */
+.goal-form .form-input, .goal-form label, .goal-form select {
+    color: var(--text) !important;
+}
+
+.goal-form select {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.goal-form select option {
+    background: var(--card) !important;
+    color: var(--text) !important;
+    padding: 0.5rem !important;
+}
+
+/* Distance (km) - blue accent */
+.goal-type-distance { --goal-accent: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%); }
+.goal-type-distance .form-input, .goal-type-distance select {
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.2);
+}
+.goal-type-distance .goals-btn { background: var(--goal-accent); color: #fff; border: none; }
+
+/* Duration (minutes) - cyan accent */
+.goal-type-duration { --goal-accent: linear-gradient(135deg, var(--accent-2) 0%, #0891b2 100%); }
+.goal-type-duration .form-input, .goal-type-duration select {
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.2);
+}
+.goal-type-duration .goals-btn { background: var(--goal-accent); color: #fff; border: none; }
+
+/* Calories - warning/danger accent */
+.goal-type-calories { --goal-accent: linear-gradient(135deg, var(--warn) 0%, var(--danger) 100%); }
+.goal-type-calories .form-input, .goal-type-calories select {
+    background: rgba(220,60,60,0.06);
+    border: 1px solid rgba(220,60,60,0.18);
+}
+.goal-type-calories .goals-btn { background: var(--goal-accent); color: #fff; border: none; }
+
+/* Ensure the Start button remains legible when active */
+.goal-form .goals-btn { padding: 0.6rem 1rem; font-weight:600; }
+.goal-form .goals-btn:focus { outline: 3px solid rgba(255,255,255,0.12); }
+
+/* Base style for goals buttons so they are visible on dark backgrounds */
+.goals-btn {
+    background: transparent;
+    color: var(--text) !important;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.goals-btn:hover { border-color: rgba(255,255,255,0.12); }
+
+/* Stronger distance variant for clear contrast (solid darker blue) */
+.goal-type-distance .goals-btn { background: #1d4ed8; color: #fff; border: 1px solid rgba(29,78,216,0.9); }
+.goal-type-distance .form-input, .goal-type-distance select { background: rgba(29,78,216,0.08); border: 1px solid rgba(29,78,216,0.22); }
+
+/* improved select focus visibility */
+.goal-form select:focus { outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+
+/* allow the open button itself to receive the variant class for visibility when the form is closed */
+.goals-btn.goal-type-distance { background: #1d4ed8 !important; color: #fff !important; border: 1px solid rgba(29,78,216,0.9); }
+.goals-btn.goal-type-duration { background: linear-gradient(135deg, var(--accent-2) 0%, #0891b2 100%) !important; color: #fff !important; border: 1px solid rgba(6,182,212,0.9); }
+.goals-btn.goal-type-calories { background: linear-gradient(135deg, var(--warn) 0%, var(--danger) 100%) !important; color: #fff !important; border: 1px solid rgba(220,60,60,0.9); }

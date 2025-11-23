@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTracker Pro - Professional Fitness Dashboard</title>
+    <meta name="description" content="Comprehensive fitness tracking application with analytics, nutrition tracking, and workout management">
+    <meta name="author" content="Dilon Sejdija">
+    <meta name="keywords" content="fitness, tracker, dashboard, analytics, nutrition, workout, health">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=2">
+    <link rel="stylesheet" href="css/dashboard.css?v=2">
+    <link rel="stylesheet" href="css/mobile.css?v=2">
+    <link rel="stylesheet" href="css/professional-enhancements.css?v=2">
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
+    
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="exercise.html">Exercises</a></li>
+                <li><a href="run-tracker.html">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+            </ul>
+        </div>
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html">Information</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <header class="top-header">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <span id="userName">Dilon Sejdija</span>
+                <div class="avatar" id="userAvatar">U</div>
+                <button class="help-btn tooltip" data-tooltip="Help & Tour" onclick="showHelpMenu()">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+            </div>
+        </header>
+        
+        <main class="dashboard">
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <i class="fas fa-walking"></i>
+                    <span class="stat-number">8,542</span>
+                    <span class="stat-label">Steps Today</span>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-fire"></i>
+                    <span class="stat-number">420</span>
+                    <span class="stat-label">Calories</span>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-clock"></i>
+                    <span class="stat-number">45m</span>
+                    <span class="stat-label">Active Time</span>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-heart"></i>
+                    <span class="stat-number">72</span>
+                    <span class="stat-label">Avg BPM</span>
+                </div>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-card">
+                    <h3><i class="fas fa-dumbbell"></i> Upper Body Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%"></div>
+                    </div>
+                    <p>65% complete this week</p>
+                    <button class="continue-btn" onclick="window.location.href='exercise.html'">Continue Exercise</button>
+                </div>
+                <div class="progress-card">
+                    <h3><i class="fas fa-running"></i> Lower Body Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                    <p>80% complete this week</p>
+                    <button class="continue-btn" onclick="window.location.href='exercise.html'">Continue Exercise</button>
+                </div>
+            </div>
+            
+            <div class="fitness-goals-section">
+                <h3><i class="fas fa-target"></i> Set Your Fitness Goals</h3>
+                <p>The quality of your health</p>
+                <div class="goal-controls">
+                    <button id="openGoalBtn" class="goals-btn" type="button">Set Fitness Goals</button>
+                    <div id="goalSummary" class="goal-summary" aria-live="polite"></div>
+                </div>
+
+                <div id="goalForm" class="goal-form hidden">
+                    <label for="goalType">Goal type</label>
+                    <select id="goalType" class="form-input">
+                        <option value="distance">Distance (km)</option>
+                        <option value="duration">Duration (minutes)</option>
+                        <option value="calories">Calories</option>
+                    </select>
+
+                    <label for="goalTarget">Target</label>
+                    <input id="goalTarget" class="form-input" type="number" min="1" placeholder="Enter target" />
+
+                    <div style="display:flex;gap:8px;margin-top:8px;">
+                        <button id="saveGoalBtn" class="btn-primary" type="button">Save Goal</button>
+                        <button id="startGoalBtn" class="goals-btn" type="button" aria-pressed="false">Start Goal</button>
+                        <button id="cancelGoalBtn" class="clear-sessions-btn" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-section">
+                <div class="stat-card">
+                    <h3><i class="fas fa-chart-bar"></i> Workout Statistics</h3>
+                    <div class="stat-content">
+                        <p>Weekly workouts: <span>5</span></p>
+                        <p>Total time: <span>4h 30m</span></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-running"></i> Running Activity</h3>
+                    <div class="stat-content">
+                        <p>Distance: <span>12.5 km</span></p>
+                        <p>Average pace: <span>5:30/km</span></p>
+                        <div class="run-activity-preview">
+                            <svg role="img" aria-labelledby="runTitle runDesc" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+                                <title id="runTitle">Recent running route</title>
+                                <desc id="runDesc">Stylized route preview with purple-to-cyan gradient path and start/end markers.</desc>
+                                <defs>
+                                    <linearGradient id="rgrad" x1="0" x2="1">
+                                        <stop offset="0%" stop-color="#3b82f6" />
+                                        <stop offset="100%" stop-color="#06b6d4" />
+                                    </linearGradient>
+                                    <filter id="rg" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="4" result="b" />
+                                        <feMerge>
+                                            <feMergeNode in="b" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <rect width="300" height="180" rx="8" style="fill:var(--card)" />
+                                <g opacity="0.12" stroke="#fff" stroke-width="1" fill="none">
+                                    <path d="M10 40 C60 20, 120 50, 180 40" />
+                                    <path d="M20 100 C80 80, 140 120, 260 100" />
+                                </g>
+                                <path d="M18 150 C60 120, 100 90, 150 80 C200 70, 240 50, 278 30"
+                                      fill="none" stroke="url(#rgrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#rg)" />
+                                <circle cx="18" cy="150" r="10" fill="#fff" />
+                                <circle cx="18" cy="150" r="6" fill="#3b82f6" />
+                                <circle cx="278" cy="30" r="10" fill="#fff" />
+                                <circle cx="278" cy="30" r="6" fill="#06b6d4" />
+                            </svg>
+                            <small>Yesterday, 6:30 AM — 2.0 km</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="notifications-panel">
+                <h3><i class="fas fa-bell"></i> Notifications</h3>
+                <div class="notification-list">
+                    <div class="notification-item new">
+                        <div class="notification-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="notification-content">
+                            <span class="notification-title">Achievement Unlocked!</span>
+                            <span class="notification-desc">You've completed 5 workouts this week</span>
+                        </div>
+                        <span class="notification-time">2m ago</span>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon"><i class="fas fa-calendar"></i></div>
+                        <div class="notification-content">
+                            <span class="notification-title">Workout Reminder</span>
+                            <span class="notification-desc">Upper body training in 30 minutes</span>
+                        </div>
+                        <span class="notification-time">25m ago</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2024 FitTracker Pro - Developed by Dilon Sejdija</p>
+            <p>Professional Fitness Dashboard with Advanced Analytics</p>
+        </footer>
+    </div>
+    
+    <div class="version-badge">v1.0</div>
+    
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/professional-enhancements.js?v=2"></script>
+    <script src="js/onboarding.js?v=2"></script>
+    <script src="js/auth.js?v=2"></script>
+    <script src="js/workout-data.js?v=2"></script>
+    <script src="js/charts.js?v=2"></script>
+    <script src="js/nutrition-calculator.js?v=2"></script>
+    <script src="js/goal-runner.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/dashboard-functions.js?v=2"></script>
+    <script src="js/mobile-nav.js?v=2"></script>
+
+</body>
+</html>

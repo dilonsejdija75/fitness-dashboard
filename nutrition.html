@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition - Fitness Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="exercise.html">Exercises</a></li>
+                <li><a href="run-tracker.html">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html" class="active">Nutrition</a></li>
+            </ul>
+        </div>
+        
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html">Information</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="top-header">
+            <h1>Nutrition Tracker</h1>
+            <div class="user-info">
+                <span id="userName">Dilon Sejdija</span>
+                <div class="avatar" id="userAvatar">U</div>
+            </div>
+        </header>
+
+        <!-- Daily Overview -->
+        <section class="nutrition-overview">
+            <div class="daily-summary">
+                <h3>Today's Nutrition</h3>
+                <div class="macro-rings">
+                    <div class="macro-ring">
+                        <div class="ring-chart" data-percentage="65">
+                            <span class="ring-value">1,850</span>
+                            <span class="ring-label">Calories</span>
+                        </div>
+                    </div>
+                    <div class="macro-breakdown">
+                        <div class="macro-item">
+                            <span class="macro-color carbs"></span>
+                            <span class="macro-name">Carbs</span>
+                            <span class="macro-value">180g</span>
+                            <span class="macro-percentage">45%</span>
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-color protein"></span>
+                            <span class="macro-name">Protein</span>
+                            <span class="macro-value">120g</span>
+                            <span class="macro-percentage">30%</span>
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-color fat"></span>
+                            <span class="macro-name">Fat</span>
+                            <span class="macro-value">65g</span>
+                            <span class="macro-percentage">25%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-add">
+                <h3>Quick Add</h3>
+                <div class="quick-add-buttons">
+                    <button class="quick-btn" onclick="openFoodSearch()">🔍 Search Food</button>
+                    <button class="quick-btn" onclick="scanBarcode()">📱 Scan Barcode</button>
+                    <button class="quick-btn" onclick="addCustomFood()">➕ Custom Food</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meal Planning -->
+        <section class="meal-planning">
+            <div class="meal-section">
+                <div class="meal-header">
+                    <h3>🌅 Breakfast</h3>
+                    <span class="meal-calories">420 cal</span>
+                </div>
+                <div class="meal-items" id="breakfastItems">
+                    <div class="food-item">
+                        <span class="food-name">Oatmeal with berries</span>
+                        <span class="food-calories">280 cal</span>
+                    </div>
+                    <div class="food-item">
+                        <span class="food-name">Greek yogurt</span>
+                        <span class="food-calories">140 cal</span>
+                    </div>
+                </div>
+                <button class="add-food-btn" onclick="addFoodToMeal('breakfast')">+ Add Food</button>
+            </div>
+
+            <div class="meal-section">
+                <div class="meal-header">
+                    <h3>🌞 Lunch</h3>
+                    <span class="meal-calories">650 cal</span>
+                </div>
+                <div class="meal-items" id="lunchItems">
+                    <div class="food-item">
+                        <span class="food-name">Grilled chicken salad</span>
+                        <span class="food-calories">450 cal</span>
+                    </div>
+                    <div class="food-item">
+                        <span class="food-name">Whole grain bread</span>
+                        <span class="food-calories">200 cal</span>
+                    </div>
+                </div>
+                <button class="add-food-btn" onclick="addFoodToMeal('lunch')">+ Add Food</button>
+            </div>
+
+            <div class="meal-section">
+                <div class="meal-header">
+                    <h3>🌆 Dinner</h3>
+                    <span class="meal-calories">780 cal</span>
+                </div>
+                <div class="meal-items" id="dinnerItems">
+                    <div class="food-item">
+                        <span class="food-name">Salmon fillet</span>
+                        <span class="food-calories">350 cal</span>
+                    </div>
+                    <div class="food-item">
+                        <span class="food-name">Quinoa</span>
+                        <span class="food-calories">220 cal</span>
+                    </div>
+                    <div class="food-item">
+                        <span class="food-name">Steamed vegetables</span>
+                        <span class="food-calories">210 cal</span>
+                    </div>
+                </div>
+                <button class="add-food-btn" onclick="addFoodToMeal('dinner')">+ Add Food</button>
+            </div>
+
+            <div class="meal-section">
+                <div class="meal-header">
+                    <h3>🍎 Snacks</h3>
+                    <span class="meal-calories">200 cal</span>
+                </div>
+                <div class="meal-items" id="snackItems">
+                    <div class="food-item">
+                        <span class="food-name">Mixed nuts</span>
+                        <span class="food-calories">200 cal</span>
+                    </div>
+                </div>
+                <button class="add-food-btn" onclick="addFoodToMeal('snacks')">+ Add Food</button>
+            </div>
+        </section>
+
+        <!-- Water Intake -->
+        <section class="water-tracking">
+            <div class="water-card">
+                <h3>💧 Water Intake</h3>
+                <div class="water-progress">
+                    <div class="water-bottle">
+                        <div class="water-level" style="height: 60%"></div>
+                        <span class="water-amount">1.8L / 3L</span>
+                    </div>
+                    <div class="water-controls">
+                        <button class="water-btn" onclick="addWater(250)">+250ml</button>
+                        <button class="water-btn" onclick="addWater(500)">+500ml</button>
+                        <button class="water-btn" onclick="addWater(1000)">+1L</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nutrition Insights -->
+        <section class="nutrition-insights">
+            <div class="insights-card">
+                <h3>📊 Nutrition Insights</h3>
+                <div class="insight-list">
+                    <div class="insight-item">
+                        <span class="insight-icon">✅</span>
+                        <div class="insight-content">
+                            <h4>Great protein intake!</h4>
+                            <p>You're meeting your daily protein goals consistently.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <span class="insight-icon">⚠️</span>
+                        <div class="insight-content">
+                            <h4>Low fiber intake</h4>
+                            <p>Consider adding more vegetables and whole grains.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-suggestions">
+                <h3>🍽️ Meal Suggestions</h3>
+                <div class="suggestion-list">
+                    <div class="suggestion-item">
+                        <img src="https://via.placeholder.com/80x80" alt="Meal suggestion">
+                        <div class="suggestion-content">
+                            <h4>Mediterranean Bowl</h4>
+                            <p>High protein, balanced macros</p>
+                            <span class="suggestion-calories">520 cal</span>
+                        </div>
+                        <button class="add-suggestion-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Food Search Modal -->
+    <div id="foodSearchModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Search Food</h3>
+                <button class="close-btn" onclick="closeFoodSearch()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="search-container">
+                    <input type="text" id="foodSearchInput" placeholder="Search for food..." />
+                    <button onclick="searchFood()">Search</button>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/nutrition.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script>
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

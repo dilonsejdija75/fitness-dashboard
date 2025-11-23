@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Fitness Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/professional-enhancements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="analytics.html" class="active">Analytics</a></li>
+                <li><a href="exercise.html">Exercises</a></li>
+                <li><a href="run-tracker.html">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+            </ul>
+        </div>
+        
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html">Information</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="top-header">
+            <h1>Analytics Dashboard</h1>
+            <div class="user-info">
+                <span id="userName">Dilon Sejdija</span>
+                <div class="avatar" id="userAvatar">U</div>
+            </div>
+        </header>
+
+        <!-- Time Range Selector -->
+        <div class="analytics-controls">
+            <div class="time-range-selector">
+                <button class="range-btn active" data-range="7">7 Days</button>
+                <button class="range-btn" data-range="30">30 Days</button>
+                <button class="range-btn" data-range="90">90 Days</button>
+                <button class="range-btn" data-range="365">1 Year</button>
+            </div>
+            <div class="export-controls">
+                <button class="export-btn" onclick="exportData('csv')">📊 Export CSV</button>
+                <button class="export-btn" onclick="exportData('pdf')">📄 Export PDF</button>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <section class="metrics-overview">
+            <div class="metric-card">
+                <div class="metric-icon">🏃</div>
+                <div class="metric-content">
+                    <h3>Total Workouts</h3>
+                    <div class="metric-value" id="totalWorkouts">0</div>
+                    <div class="metric-change positive" id="workoutChange">+0%</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🔥</div>
+                <div class="metric-content">
+                    <h3>Calories Burned</h3>
+                    <div class="metric-value" id="totalCalories">0</div>
+                    <div class="metric-change positive" id="calorieChange">+0%</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">⏱️</div>
+                <div class="metric-content">
+                    <h3>Total Time</h3>
+                    <div class="metric-value" id="totalTime">0h</div>
+                    <div class="metric-change positive" id="timeChange">+0%</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-content">
+                    <h3>Goal Progress</h3>
+                    <div class="metric-value" id="goalProgress">0%</div>
+                    <div class="metric-change positive" id="goalChange">+0%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Workout Frequency</h3>
+                    <div class="chart-controls">
+                        <select id="workoutChartType">
+                            <option value="line">Line Chart</option>
+                            <option value="bar">Bar Chart</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="workoutChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Calories Burned</h3>
+                </div>
+                <canvas id="caloriesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Exercise Distribution</h3>
+                </div>
+                <canvas id="exerciseDistributionChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Progress Trends</h3>
+                </div>
+                <canvas id="progressChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Detailed Analytics -->
+        <section class="detailed-analytics">
+            <div class="analytics-card">
+                <h3>Performance Insights</h3>
+                <div class="insights-list" id="performanceInsights">
+                    <div class="insight-item">
+                        <span class="insight-icon">📈</span>
+                        <div class="insight-content">
+                            <h4>Workout Consistency</h4>
+                            <p>You've maintained a consistent workout schedule with an average of 4.2 sessions per week.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h3>Goal Tracking</h3>
+                <div class="goal-progress-list" id="goalProgressList">
+                    <!-- Goals will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h3>Recommendations</h3>
+                <div class="recommendations-list" id="recommendationsList">
+                    <div class="recommendation-item">
+                        <span class="recommendation-icon">💡</span>
+                        <div class="recommendation-content">
+                            <h4>Increase Cardio</h4>
+                            <p>Consider adding 2 more cardio sessions per week to improve cardiovascular health.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/professional-enhancements.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script>
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+        
+        // Enhanced analytics with error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading states to export buttons
+            document.querySelectorAll('.export-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    professionalEnhancements.showLoading(this, 'Exporting...');
+                    setTimeout(() => professionalEnhancements.hideLoading(this), 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

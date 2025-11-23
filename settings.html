@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Fitness Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/professional-enhancements.css">
+</head>
+<body>
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="exercise.html">Exercises</a></li>
+                <li><a href="run-tracker.html">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+            </ul>
+        </div>
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html">Information</a></li>
+                <li><a href="settings.html" class="active">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <header class="top-header">
+            <h1>Settings</h1>
+            <div class="user-info">
+                <span>Welcome back, Dilon!</span>
+                <div class="avatar">DS</div>
+            </div>
+        </header>
+        
+        <main class="dashboard">
+            <div class="settings-section">
+                <div class="settings-card">
+                    <h3><i class="fas fa-user-cog"></i> Account Settings</h3>
+                    <div class="setting-item">
+                        <label>Email Address</label>
+                        <input type="email" value="dilonsejdija40@gmail.com" class="setting-input">
+                    </div>
+                    <div class="setting-item">
+                        <label>Password</label>
+                        <input type="password" value="Sllatine03" class="setting-input">
+                    </div>
+                    <button class="save-btn" onclick="saveAccountSettings()">Save Changes</button>
+                </div>
+                
+                <div class="settings-card">
+                    <h3><i class="fas fa-bell"></i> Notifications</h3>
+                    <div class="toggle-item">
+                        <span>Workout Reminders</span>
+                        <label class="toggle">
+                            <input type="checkbox" data-setting="workoutReminders" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Achievement Alerts</span>
+                        <label class="toggle">
+                            <input type="checkbox" data-setting="achievementAlerts" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Weekly Reports</span>
+                        <label class="toggle">
+                            <input type="checkbox" data-setting="weeklyReports">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3><i class="fas fa-palette"></i> Preferences</h3>
+                    <div class="setting-item">
+                        <label>Units</label>
+                        <select class="setting-select" data-setting="units">
+                            <option>Metric (kg, cm)</option>
+                            <option>Imperial (lbs, ft)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>Language</label>
+                        <select class="setting-select" data-setting="language">
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3><i class="fas fa-shield-alt"></i> Privacy & Security</h3>
+                    <div class="toggle-item">
+                        <span>Share Activity Data</span>
+                        <label class="toggle">
+                            <input type="checkbox" data-setting="shareData">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Two-Factor Authentication</span>
+                        <label class="toggle">
+                            <input type="checkbox" data-setting="twoFactor" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button class="danger-btn" onclick="confirmDeleteAccount()">Delete Account</button>
+                </div>
+            </div>
+        </main>
+    </div>
+<script>
+class SettingsManager {
+    constructor() {
+        this.settings = JSON.parse(localStorage.getItem('userSettings') || '{}');
+        this.init();
+    }
+    
+    init() {
+        this.loadSettings();
+        this.setupEventListeners();
+    }
+    
+    loadSettings() {
+        // Load notification settings
+        const workoutReminders = document.querySelector('[data-setting="workoutReminders"]');
+        const achievementAlerts = document.querySelector('[data-setting="achievementAlerts"]');
+        const weeklyReports = document.querySelector('[data-setting="weeklyReports"]');
+        const shareData = document.querySelector('[data-setting="shareData"]');
+        const twoFactor = document.querySelector('[data-setting="twoFactor"]');
+        
+        if (workoutReminders) workoutReminders.checked = this.settings.workoutReminders !== false;
+        if (achievementAlerts) achievementAlerts.checked = this.settings.achievementAlerts !== false;
+        if (weeklyReports) weeklyReports.checked = this.settings.weeklyReports || false;
+        if (shareData) shareData.checked = this.settings.shareData || false;
+        if (twoFactor) twoFactor.checked = this.settings.twoFactor !== false;
+        
+        // Load preference settings
+        const unitsSelect = document.querySelector('[data-setting="units"]');
+        const languageSelect = document.querySelector('[data-setting="language"]');
+        
+        if (unitsSelect) unitsSelect.value = this.settings.units || 'Metric (kg, cm)';
+        if (languageSelect) languageSelect.value = this.settings.language || 'English';
+    }
+    
+    setupEventListeners() {
+        // Toggle switches
+        document.querySelectorAll('.toggle input[data-setting]').forEach(toggle => {
+            toggle.addEventListener('change', (e) => {
+                const setting = e.target.dataset.setting;
+                const value = e.target.checked;
+                this.updateSetting(setting, value);
+                
+                const settingName = e.target.closest('.toggle-item').querySelector('span').textContent;
+                showNotification(`${settingName} ${value ? 'enabled' : 'disabled'}`, 'success');
+            });
+        });
+        
+        // Dropdown selects
+        document.querySelectorAll('.setting-select[data-setting]').forEach(select => {
+            select.addEventListener('change', (e) => {
+                const setting = e.target.dataset.setting;
+                const value = e.target.value;
+                this.updateSetting(setting, value);
+                
+                const label = e.target.closest('.setting-item').querySelector('label').textContent;
+                showNotification(`${label} updated to: ${value}`, 'success');
+                
+                // Apply changes immediately
+                if (setting === 'units') {
+                    this.applyUnits(value);
+                }
+            });
+        });
+    }
+    
+    updateSetting(key, value) {
+        this.settings[key] = value;
+        localStorage.setItem('userSettings', JSON.stringify(this.settings));
+    }
+    
+
+    
+    applyUnits(units) {
+        // Store units preference for use across the app
+        window.userUnits = units;
+    }
+}
+
+function saveAccountSettings() {
+    const email = document.querySelector('input[type="email"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+    
+    // Save to localStorage (in real app, would send to server)
+    const accountData = { email, password };
+    localStorage.setItem('accountSettings', JSON.stringify(accountData));
+    
+    showNotification('Account settings saved successfully!', 'success');
+}
+
+function confirmDeleteAccount() {
+    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        // Clear all user data
+        localStorage.clear();
+        showNotification('Account deletion initiated. Redirecting to login...', 'warning');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 2000);
+    }
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" class="close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Initialize settings manager
+document.addEventListener('DOMContentLoaded', function() {
+    new SettingsManager();
+});
+</script>
+
+<style>
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1000;
+    min-width: 300px;
+    border-left: 4px solid #10b981;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.success {
+    border-left-color: #10b981;
+}
+
+.notification.warning {
+    border-left-color: #f59e0b;
+}
+
+.notification i:first-child {
+    color: #10b981;
+    font-size: 1.2rem;
+}
+
+.notification.warning i:first-child {
+    color: #f59e0b;
+}
+
+.notification span {
+    flex: 1;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.close-btn:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.danger-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.setting-input:hover, .setting-select:hover {
+    border-color: #9ca3af;
+}
+
+.toggle-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    margin: 0 -1rem;
+    padding: 1rem;
+}
+</style>
+
+<script>
+    function logout() {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+</script>
+
+<script src="js/professional-enhancements.js"></script>
+<script>
+    function logout() {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+</script>
+
+</body>
+</html>

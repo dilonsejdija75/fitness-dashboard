@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise - Fitness Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+    <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="logo">
+            <span>FitTracker Pro</span>
+        </div>
+        <div class="main-menu">
+            <h3>Main Menu</h3>
+            <ul class="nav-menu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="exercise.html" class="active">Exercises</a></li>
+                <li><a href="run-tracker.html">Run Tracker</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+            </ul>
+        </div>
+        <div class="account-section">
+            <h3>Account</h3>
+            <ul class="account-menu">
+                <li><a href="information.html">Information</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <header class="top-header">
+            <h1>Exercise</h1>
+            <div class="user-info">
+                <span>Welcome back, Dilon!</span>
+                <div class="avatar">DS</div>
+            </div>
+        </header>
+        <!-- aria-live region for accessibility notifications -->
+        <div id="aria-notify" class="sr-only" aria-live="polite"></div>
+        
+        <main class="dashboard">
+            <div class="workout-header">
+                <div class="workout-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">Exercises</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">45m</span>
+                        <span class="stat-label">Est. Duration</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">350</span>
+                        <span class="stat-label">Est. Calories</span>
+                    </div>
+                </div>
+                <button id="startWorkoutBtn" type="button" class="start-workout-btn" aria-label="Start workout" aria-pressed="false" aria-controls="sessions-list"><i class="fas fa-play"></i> Start Workout</button>
+            </div>
+            
+            <div class="exercise-categories">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><i class="fas fa-dumbbell"></i> Upper Body</h3>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <div class="exercise-grid">
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Push-ups</span>
+                                <span class="exercise-target">Chest, Triceps</span>
+                            </div>
+                            <span class="exercise-sets">3x15</span>
+                        </div>
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Pull-ups</span>
+                                <span class="exercise-target">Back, Biceps</span>
+                            </div>
+                            <span class="exercise-sets">3x8</span>
+                        </div>
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Bench Press</span>
+                                <span class="exercise-target">Chest, Shoulders</span>
+                            </div>
+                            <span class="exercise-sets">3x12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><i class="fas fa-running"></i> Lower Body</h3>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div class="exercise-grid">
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Squats</span>
+                                <span class="exercise-target">Quads, Glutes</span>
+                            </div>
+                            <span class="exercise-sets">3x20</span>
+                        </div>
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Lunges</span>
+                                <span class="exercise-target">Legs, Glutes</span>
+                            </div>
+                            <span class="exercise-sets">3x15</span>
+                        </div>
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Deadlifts</span>
+                                <span class="exercise-target">Hamstrings, Back</span>
+                            </div>
+                            <span class="exercise-sets">3x10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><i class="fas fa-heart"></i> Cardio</h3>
+                        <span class="difficulty advanced">Advanced</span>
+                    </div>
+                    <div class="exercise-grid">
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Running</span>
+                                <span class="exercise-target">Cardiovascular</span>
+                            </div>
+                            <span class="exercise-sets">30min</span>
+                        </div>
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Cycling</span>
+                                <span class="exercise-target">Legs, Cardio</span>
+                            </div>
+                            <span class="exercise-sets">45min</span>
+                        </div>
+                        <div class="exercise-item">
+                            <div class="exercise-info">
+                                <span class="exercise-name">Jump Rope</span>
+                                <span class="exercise-target">Full Body</span>
+                            </div>
+                            <span class="exercise-sets">15min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-filters">
+                <h3><i class="fas fa-filter"></i> Filter Exercises</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterExercises('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterExercises('beginner', this)">Beginner</button>
+                    <button class="filter-btn" onclick="filterExercises('intermediate', this)">Intermediate</button>
+                    <button class="filter-btn" onclick="filterExercises('advanced', this)">Advanced</button>
+                </div>
+            </div>
+
+            <div class="recent-sessions">
+                <div class="recent-sessions-header">
+                    <h3 class="recent-title"><i class="fas fa-history"></i> Recent Sessions</h3>
+                    <button class="clear-sessions-btn" aria-label="Clear all sessions">Clear</button>
+                </div>
+                <div class="sessions-list"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/filter.js"></script>
+    <script src="js/workout-runner.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script>
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
